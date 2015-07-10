@@ -1,0 +1,34 @@
+.row{
+    margin-top:10%;
+}
+
+img {
+   width:75%;
+
+
+}
+
+.answers{
+    list-style-type: none;
+}
+.answers li {
+    text-align: center;
+    border:1px solid black;
+}
+
+.submit {
+    margin-left:35%
+
+}
+
+.title {
+    text-align: center;
+    margin-top:20%;
+}
+
+.input {
+    margin-top:10%
+}
+.input h5 {
+    text-align:center;
+}
