@@ -21,8 +21,10 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
+
+    <link rel="import" href="components/paper-elements/paper-elements.html">
+    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/style.css">
-      <link rel="import" href="components/paper-elements/paper-elements.html">
 
     <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -37,33 +39,36 @@
     <div class="container">
         <div class="row">
             <div class="one-third column title">
-                 <h2>Anatomy Quiz</h2>
-                <h5>Question <span class="count"></span> of 5</h5>
+                <h2>Anatomy Quiz</h2>
+                <h5>Question
+          <span class="count"></span> of 5</h5>
 
             </div>
 
 
-        <div class="one-third column image">
-            <img>
+            <div class="one-third column image">
+                <img>
+            </div>
+
+
+
+            <div class="one-third column input u-full-width">
+                <h5>Which muscle is highlighted?</h5>
+                <ul class="answers">
+
+
+                </ul>
+                <paper-button raised class="submit">Submit</paper-button>
+            </div>
         </div>
-
-
-
-        <div class="one-third column input u-full-width">
-        <h5>Which muscle is highlighted?</h5>
-        <ul class="answers">
-
-
-        </ul>
-        <paper-button raised class="submit">Submit</paper-button>
-        </div>
-        </div><!--row-->
-    </div><!--container-->
+        <!--row-->
+    </div>
+    <!--container-->
 
     <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <script src ="js/jquery-2.1.4.min.js"></script>
-  <script src="js/app.js"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>

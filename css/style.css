@@ -1,43 +1,43 @@
-
-.row{
-    margin-top:10%;
+body{
+    color:#212121;
 }
-
+.row {
+  margin-top: 10%;
+}
 img {
-   width:75%;
-
-
+  width: 75%;
 }
-
-.answers{
-    list-style-type: none;
+.answers {
+  list-style-type: none;
 }
 .answers li {
-    text-align: center;
-    border:1px solid black;
-}
+  text-align: center;
 
-.answers li:hover {
-    cursor: pointer;
 }
-
+.answers .choice:hover {
+  cursor: pointer;
+}
 .submit {
-    margin-left:35%
-
+  margin-left: 35%;
 }
-
 .title {
-    text-align: center;
-    margin-top:20%;
+  margin-top: 20%;
+  text-align: center;
 }
-
 .input {
-    margin-top:10%
+  margin-top: 10%;
 }
 .input h5 {
-    text-align:center;
+  text-align: center;
+}
+.deselected {
+  text-decoration: line-through;
+}
+button {
+    width:100%;
 }
 
-.deselected {
-    text-decoration: line-through;
+.selected {
+    background-color: #FFC107;
+    color: #fff;
 }

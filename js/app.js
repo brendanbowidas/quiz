@@ -9,13 +9,13 @@ var qNum = 0;
 
 //set questions
 function Question(pic, choices, answer) {
-    this.pic = pic;
-    this.choices = choices;
-    this.answer = answer;
+  this.pic = pic;
+  this.choices = choices;
+  this.answer = answer;
 
 }
 
-var q1 = new Question("img/bicep.png",["Vastus Medialis", "Latissimus Dorsi", "Trapezius", "Biceps Brachii"], "Biceps Brachii" );
+var q1 = new Question("img/bicep.png", ["Vastus Medialis", "Latissimus Dorsi", "Trapezius", "Biceps Brachii"], "Biceps Brachii");
 
 var q2 = new Question("img/pec.png", ["Rectus Femoris", "Teres Minor", "Pectoralis Minor", "Pectoralis Major"], "Pectoralis Major");
 
@@ -32,23 +32,27 @@ function checkAnswer() {
 
 
 
-};
+}
 
 //shows question
 function showQuestion() {
-    var current = questions[qNum];
-    var currChoices = current.choices;
-    $(".image img").attr("src", current.pic);
-    $(".count").text(qNum +1);
+  var current = questions[qNum];
+  var currChoices = current.choices;
+  $(".image img").attr("src", current.pic);
+  $(".count").text(qNum + 1);
 
-    for(var i = 0; i < current.choices.length; i++){
-        $(".answers").prepend("<li>" + currChoices[i] + "</li>")
-    }
-};
+  for (var i = 0; i < current.choices.length; i++) {
+    $(".answers").prepend("<li><button class='option'>" + currChoices[i] + "</button></li>");
+  }
+}
 
-$(document).ready(function(){
-    showQuestion();
+$(document).ready(function() {
+    //answer selection handler
+$('.answers').on('click', '.option', function(){
+   $('.answers .option').removeClass('animated pulse selected');
+
+    $(this).addClass('animated pulse selected').fadeIn();
+
 });
-
-
-
+  showQuestion();
+});
