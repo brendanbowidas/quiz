@@ -47,7 +47,15 @@
 
 
             <div class="one-third column image">
+
                 <img>
+                <paper-dialog id="dialog" heading=""
+                              transition="paper-dialog-transition-bottom">
+                    <p>This app would like to launch a small, unmanned vehicle
+                        into space.</p>
+                    <paper-button dismissive>Cancel</paper-button>
+                    <paper-button affirmative default>OK</paper-button>
+                </paper-dialog>
             </div>
 
 
@@ -58,6 +66,7 @@
 
 
                 </ul>
+
                 <paper-button raised class="submit">Submit</paper-button>
             </div>
         </div>

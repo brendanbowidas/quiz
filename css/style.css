@@ -12,13 +12,15 @@ img {
 }
 .answers li {
   text-align: center;
-
 }
 .answers .choice:hover {
   cursor: pointer;
 }
 .submit {
   margin-left: 35%;
+    background-color: #009688;
+    color:#fff;
+
 }
 .title {
   margin-top: 20%;
