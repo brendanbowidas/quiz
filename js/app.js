@@ -2,6 +2,7 @@
 
 var points = 0;
 var qNum = 0;
+var game = $('.image, .title, .input');
 
 
 
@@ -34,14 +35,16 @@ var questions = [q1, q2, q3, q4, q5];
 function checkAnswer() {
     var current = questions[qNum];
     var userAnswer = $('.answers .option.animated.pulse.selected').text();
-    if(userAnswer === current.answer) {
-         points++;
+    if (userAnswer === current.answer) {
+        points++;
+
+    } else if (!userAnswer) {
+        $('.submit').toggleClass('animated shake');
+
 
     }
-    else if(!userAnswer) {
-        $('.submit').addClass('animated shake');
 
-    }
+
 
 }
 
@@ -49,14 +52,35 @@ function checkAnswer() {
 function showQuestion() {
     var current = questions[qNum];
     var currChoices = current.choices;
-    $(".image img").attr("src", current.pic).addClass('animated fadeIn');
-    $(".count").text(qNum + 1);
 
-    for (var i = 0; i < current.choices.length; i++) {
+
+    for (var i = 0; i < currChoices.length; i++) {
+        $(".image img").attr("src", current.pic).addClass('animated fadeIn');
+        $(".count").text(qNum + 1);
+
         $(".answers").prepend("<li class= 'animated bounceInRight'><button class='option'>" + currChoices[i] + "</button></li>");
     }
+
 }
 
+
+
+
+//removes game elements
+function removeGame() {
+
+
+       $('.image').addClass('animated slideOutUp');
+    $(".title").addClass('animated slideOutLeft');
+    $('.input').addClass('animated slideOutRight');
+}
+
+//shows result screen
+function showResults() {
+    game.detach();
+    console.log(true);
+    $('.row').append("<div class='one-third column'><h1>test</h1></div>");
+}
 
 
 $(document).ready(function () {
@@ -74,11 +98,17 @@ $(document).ready(function () {
     //user submits answer
     $('.submit').click(function () {
 
-        checkAnswer();
+        if (qNum === 4) {
+            checkAnswer();
+             removeGame();
+             showResults();
+        } else {
+            checkAnswer();
 
-        qNum++
-        $('.option').remove();
-        showQuestion();
+            qNum++
+            $('.option').remove();
+            showQuestion();
+        }
 
     });
 
