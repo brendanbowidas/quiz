@@ -1,5 +1,6 @@
 body{
     color:#212121;
+    text-align: center;
 }
 .row {
   margin-top: 10%;
@@ -17,10 +18,8 @@ img {
   cursor: pointer;
 }
 .submit {
-  margin-left: 35%;
     background-color: #009688;
     color:#fff;
-
 }
 .title {
   margin-top: 20%;

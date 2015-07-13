@@ -2,7 +2,7 @@
 
 var points = 0;
 var qNum = 0;
-var game = $('.image, .title, .input');
+var game = $('.row');
 
 
 
@@ -36,26 +36,27 @@ function checkAnswer() {
     var current = questions[qNum];
     var userAnswer = $('.answers .option.animated.pulse.selected').text();
     if (userAnswer === current.answer) {
+       console.log(userAnswer);
+        console.log(current.answer);
         points++;
+        console.log(points);
 
-    } else if (!userAnswer) {
-        $('.submit').toggleClass('animated shake');
+    }
 
 
     }
 
 
 
-}
+
 
 //shows question
 function showQuestion() {
     var current = questions[qNum];
     var currChoices = current.choices;
 
-
     for (var i = 0; i < currChoices.length; i++) {
-        $(".image img").attr("src", current.pic).addClass('animated fadeIn');
+        $(".image img").attr("src", current.pic);
         $(".count").text(qNum + 1);
 
         $(".answers").prepend("<li class= 'animated bounceInRight'><button class='option'>" + currChoices[i] + "</button></li>");
@@ -70,16 +71,23 @@ function showQuestion() {
 function removeGame() {
 
 
-       $('.image').addClass('animated slideOutUp');
+    $('.image').addClass('animated slideOutUp');
     $(".title").addClass('animated slideOutLeft');
     $('.input').addClass('animated slideOutRight');
 }
 
 //shows result screen
 function showResults() {
-    game.detach();
-    console.log(true);
-    $('.row').append("<div class='one-third column'><h1>test</h1></div>");
+    var results = "<div class='row animated slideInDown'><div class='one-full column'><h1>Quiz Complete!</h1><h3>You answered " + points + " of 5 questions correct</h3><paper-button raised class='reset'>Play Again</paper-button></div></div>";
+
+
+    $(game).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+        console.log(this);
+        $(this).detach();
+        $('.container').append(results);
+
+});
+
 }
 
 
@@ -100,16 +108,19 @@ $(document).ready(function () {
 
         if (qNum === 4) {
             checkAnswer();
-             removeGame();
-             showResults();
+            removeGame();
+            showResults();
         } else {
             checkAnswer();
-
             qNum++
             $('.option').remove();
             showQuestion();
         }
 
+    });
+
+    $('.container').on('click', '.reset', function(){
+        window.location.reload(false);
     });
 
 });
