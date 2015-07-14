@@ -1,11 +1,26 @@
 //set global variables
 
-var points = 0;
-var qNum = 0;
-var game = $('.row');
+var points = 0,
+    qNum = 0,
+    game = $('.row'),
+    selected = false; // global boolean to determine if an option is selected
 
+//randomizes questions & answers
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex ;
 
+    while (0 !== currentIndex) {
 
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
 
 
 //set questions prototype
@@ -16,7 +31,7 @@ function Question(pic, choices, answer) {
 
 }
 
-//sets question-related variables
+//sets question objects
 var q1 = new Question("img/bicep.png", ["Vastus Medialis", "Latissimus Dorsi", "Trapezius", "Biceps Brachii"], "Biceps Brachii");
 
 var q2 = new Question("img/pec.png", ["Rectus Femoris", "Teres Minor", "Pectoralis Minor", "Pectoralis Major"], "Pectoralis Major");
@@ -35,25 +50,21 @@ var questions = [q1, q2, q3, q4, q5];
 function checkAnswer() {
     var current = questions[qNum];
     var userAnswer = $('.answers .option.animated.pulse.selected').text();
+
     if (userAnswer === current.answer) {
-       console.log(userAnswer);
-        console.log(current.answer);
-        points++;
-        console.log(points);
+
+        points += 1;
 
     }
-
-
-    }
-
-
-
+}
 
 
 //shows question
 function showQuestion() {
     var current = questions[qNum];
     var currChoices = current.choices;
+    selected = false;
+    shuffle(currChoices)
 
     for (var i = 0; i < currChoices.length; i++) {
         $(".image img").attr("src", current.pic);
@@ -65,11 +76,8 @@ function showQuestion() {
 }
 
 
-
-
 //removes game elements
 function removeGame() {
-
 
     $('.image').addClass('animated slideOutUp');
     $(".title").addClass('animated slideOutLeft');
@@ -78,38 +86,53 @@ function removeGame() {
 
 //shows result screen
 function showResults() {
-    var results = "<div class='row animated slideInDown'><div class='one-full column'><h1>Quiz Complete!</h1><h3>You answered " + points + " of 5 questions correct</h3><paper-button raised class='reset'>Play Again</paper-button></div></div>";
+    var results = "<div class='row animated slideInDown'><div class='one-full column'><h1>Quiz Complete!</h1><h3>You answered " + points + " of 5 questions correctly</h3><paper-button raised class='reset'>Play Again</paper-button></div></div>";
 
 
     $(game).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-        console.log(this);
         $(this).detach();
         $('.container').append(results);
 
-});
+    });
 
 }
 
-
+//DOCUMENT READY EVENTS------------------------------------------
 $(document).ready(function () {
+
+    shuffle(questions);
+
+
+    showQuestion();
 
     //answer selection handler
     $('.answers').on('click', '.option', function () {
         $('.answers .option').removeClass('animated pulse selected');
 
-        $(this).addClass('animated pulse selected');
+        $(this).toggleClass('animated pulse selected');
+
+        selected = true;
 
     });
 
-    showQuestion();
+
 
     //user submits answer
-    $('.submit').click(function () {
+
+    $('.submit').on('click', function () {
+        console.log(points);
 
         if (qNum === 4) {
             checkAnswer();
             removeGame();
             showResults();
+            ///returns false, adds shake animation if no answer is selected
+        } else if (selected === false) {
+            $('.answers').addClass('animated shake');
+            $('.answers').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $(this).removeClass('animated shake');
+            });
+
         } else {
             checkAnswer();
             qNum++
@@ -118,8 +141,8 @@ $(document).ready(function () {
         }
 
     });
-
-    $('.container').on('click', '.reset', function(){
+    //reloads game
+    $('.container').on('click', '.reset', function () {
         window.location.reload(false);
     });
 
