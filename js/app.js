@@ -86,7 +86,7 @@ function removeGame() {
 
 //shows result screen
 function showResults() {
-    var results = "<div class='row animated slideInDown'><div class='one-full column'><h1>Quiz Complete!</h1><h3>You answered " + points + " of 5 questions correctly</h3><paper-button raised class='reset'>Play Again</paper-button></div></div>";
+    var results = "<div class='row animated slideInDown'><div class='one-full column'><h1>Quiz Complete!</h1><h3>You answered " + points + " out of 5 questions correctly</h3><paper-button raised class='reset'>Play Again</paper-button></div></div>";
 
 
     $(game).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
@@ -111,8 +111,14 @@ $(document).ready(function () {
 
         $(this).toggleClass('animated pulse selected');
 
+
         selected = true;
 
+    });
+
+    $('.answers').on('click', '.option.animated.pulse.selected', function(){
+        $(this).removeClass('selected');
+        selected = false;
     });
 
 

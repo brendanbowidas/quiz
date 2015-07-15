@@ -1,6 +1,7 @@
 body{
     color:#212121;
     text-align: center;
+
 }
 .row {
   margin-top: 10%;
@@ -10,6 +11,12 @@ img {
 }
 .answers {
   list-style-type: none;
+animation-duration: 0.7s;
+    -moz-animation-duration: 0.7s;
+    -webkit-animation-duration: 0.7s;
+    -ms-animation-duration: 0.7s;
+    -o-animation-duration: 0.7s;
+
 }
 .answers li {
   text-align: center;
@@ -51,4 +58,7 @@ button {
     -o-animation-duration: 0.5s;
 }
 
+.reset {
+    background-color: #009688;
+}
 
