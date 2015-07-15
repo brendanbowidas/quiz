@@ -1,7 +1,7 @@
 //set global variables
 
 var points = 0,
-    qNum = 0,
+    qNum = 0, //question #
     game = $('.row'),
     selected = false; // global boolean to determine if an option is selected
 
@@ -46,19 +46,6 @@ var questions = [q1, q2, q3, q4, q5];
 
 
 
-//checks answer
-function checkAnswer() {
-    var current = questions[qNum];
-    var userAnswer = $('.answers .option.animated.pulse.selected').text();
-
-    if (userAnswer === current.answer) {
-
-        points += 1;
-
-    }
-}
-
-
 //shows question
 function showQuestion() {
     var current = questions[qNum];
@@ -74,6 +61,20 @@ function showQuestion() {
     }
 
 }
+
+
+//checks answer
+function checkAnswer() {
+    var current = questions[qNum];
+    var userAnswer = $('.answers .option.animated.pulse.selected').text();
+
+    if (userAnswer === current.answer) {
+
+        points += 1;
+
+    }
+}
+
 
 
 //removes game elements
@@ -102,7 +103,6 @@ $(document).ready(function () {
 
     shuffle(questions);
 
-
     showQuestion();
 
     //answer selection handler
@@ -117,7 +117,8 @@ $(document).ready(function () {
     });
 
     $('.answers').on('click', '.option.animated.pulse.selected', function(){
-        $(this).removeClass('selected');
+        $(this).removeClass('animated pulse selected');
+
         selected = false;
     });
 
@@ -126,13 +127,12 @@ $(document).ready(function () {
     //user submits answer
 
     $('.submit').on('click', function () {
-        console.log(points);
 
-        if (qNum === 4) {
+        if (qNum === 4) { //shows result screen if last question
             checkAnswer();
             removeGame();
             showResults();
-            ///returns false, adds shake animation if no answer is selected
+            ///adds shake animation if no answer is selected
         } else if (selected === false) {
             $('.answers').addClass('animated shake');
             $('.answers').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {

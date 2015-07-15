@@ -1,6 +1,7 @@
 body{
     color:#212121;
     text-align: center;
+    background-image: url(../img/crossword.png);
 
 }
 .row {
@@ -42,7 +43,7 @@ animation-duration: 0.7s;
   text-decoration: line-through;
 }
 button {
-    width:100%;
+    width:90%;
 }
 
 .selected {
@@ -60,5 +61,10 @@ button {
 
 .reset {
     background-color: #009688;
+    color:#EEE;
 }
 
+.title h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
