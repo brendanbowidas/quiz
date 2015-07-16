@@ -128,7 +128,7 @@ $(document).ready(function () {
 
     $('.submit').on('click', function () {
 
-        if (qNum === 4) { //shows result screen if last question
+        if (qNum === 4 && selected === true) { //shows result screen if last question
             checkAnswer();
             removeGame();
             showResults();
