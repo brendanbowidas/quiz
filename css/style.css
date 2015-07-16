@@ -62,6 +62,8 @@ button {
 .reset {
     background-color: #009688;
     color:#EEE;
+    width:30%;
+    text-align:center;
 }
 
 .title h2 {

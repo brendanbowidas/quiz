@@ -87,7 +87,7 @@ function removeGame() {
 
 //shows result screen
 function showResults() {
-    var results = "<div class='row animated slideInDown'><div class='one-full column'><h1>Quiz Complete!</h1><h3>You answered " + points + " out of 5 questions correctly</h3><paper-button raised class='reset'>Play Again</paper-button></div></div>";
+    var results = "<div class='row animated slideInDown'><div class='one-full column'><h1>Quiz Complete!</h1><h3>You answered " + points + " out of 5 questions correctly</h3><button class='reset'>Play Again</button></div></div>";
 
 
     $(game).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
