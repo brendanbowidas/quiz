@@ -60,6 +60,7 @@ function showQuestion() {
         $(".answers").prepend("<li class= 'animated bounceInRight'><button class='option'>" + currChoices[i] + "</button></li>");
     }
 
+
 }
 
 
@@ -98,6 +99,49 @@ function showResults() {
 
 }
 
+var getWiki = function(){
+    var current = questions[qNum];
+    var request = {
+        text: current.answer,
+        lang: "en",
+        limit: 1,
+        include:"image,abstract",
+        $app_id: "85311c92",
+        $app_key: "c3de6c90d0b45b24e447975896ec1b00",
+
+    }
+
+
+    var result = $.ajax({
+        url: "https://api.dandelion.eu/datagraph/wikisearch/v1",
+        data: request,
+        dataType: "jsonp",
+        type: "GET",
+
+    })
+    .done(function(result){
+        console.log(result);
+        var source   = $("#entry-template").html();
+        var template = Handlebars.compile(source);
+        var context = result.entities;
+        var html="";
+        console.log(context);
+
+        $.each(context, function(index, item){
+            html += template(item);
+            $('.modal').html(html);
+            var inst = $('[data-remodal-id=modal]').remodal();
+
+            inst.open();
+
+              console.log(html);
+    });
+
+    })
+
+
+};
+
 //DOCUMENT READY EVENTS------------------------------------------
 $(document).ready(function () {
 
@@ -123,10 +167,25 @@ $(document).ready(function () {
     });
 
 
+    // removes popup from DOM when closed or confirmed
+    $(document).on('closed', '.remodal', function (e) {
+
+
+       $(this).remove();
+    });
+
+    $(document).on('confirmation', '.remodal', function (e) {
+
+
+        $(this).remove();
+    });
+
+
 
     //user submits answer
 
     $('.submit').on('click', function () {
+
 
         if (qNum === 4 && selected === true) { //shows result screen if last question
             checkAnswer();
@@ -141,9 +200,12 @@ $(document).ready(function () {
 
         } else {
             checkAnswer();
+            getWiki();
             qNum++
             $('.option').remove();
             showQuestion();
+
+
         }
 
     });
