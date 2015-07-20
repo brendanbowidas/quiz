@@ -189,6 +189,7 @@ $(document).ready(function () {
 
 
         if (qNum === 4 && selected === true) { //shows result screen if last question
+            getWiki();
             checkAnswer();
             removeGame();
             showResults();
@@ -200,8 +201,8 @@ $(document).ready(function () {
             });
 
         } else {
-            checkAnswer();
             getWiki();
+            checkAnswer();
             qNum++
             $('.option').remove();
             showQuestion();
