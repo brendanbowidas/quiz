@@ -70,3 +70,24 @@ button {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
 }
+
+.small {
+    width: 30%;
+}
+
+.img-wrap .thumb {
+   max-height: 200px;
+    max-width:200px;
+    margin-left: 0;
+    text-align: center;
+
+}
+
+.remodal {
+    position: relative;
+
+}
+
+.remodal p {
+    text-align: left;
+}

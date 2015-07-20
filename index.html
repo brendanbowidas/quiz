@@ -56,7 +56,7 @@
 
             <div class="one-third column input">
                 <h5>Which muscle is highlighted?</h5>
-                <a href='#modal'>fuck</a>
+
                 <ul class="answers">
 
 
@@ -79,13 +79,14 @@
     <script id="entry-template" type="text/x-handlebars-template">
         <div class="remodal" data-remodal-id="modal">
             <button data-remodal-action="close" class="remodal-close"></button>
-            <h1>{{title}}</h1>
-            <p>
-                Responsive, lightweight, fast, synchronized with CSS animations, fully customizable modal window plugin with declarative configuration and hash tracking.
-            </p>
+            <h2>{{title}}</h2>
+            <p>{{abstract}}  <a href='{{uri}}' target="_blank">Learn More</a></p>
+            <div class='img-wrap'>
+            <img class='thumb' src='{{image.thumbnail}}'>
+            </div>
             <br>
-            <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
-            <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+
+            <button data-remodal-action="confirm" class="submit small">NEXT</button>
         </div>
 
     </script>

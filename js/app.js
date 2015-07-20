@@ -7,7 +7,8 @@ var points = 0,
 
 //randomizes questions & answers
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex ;
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
 
     while (0 !== currentIndex) {
 
@@ -99,13 +100,13 @@ function showResults() {
 
 }
 
-var getWiki = function(){
+var getWiki = function () {
     var current = questions[qNum];
     var request = {
         text: current.answer,
         lang: "en",
         limit: 1,
-        include:"image,abstract",
+        include: "image,abstract",
         $app_id: "85311c92",
         $app_key: "c3de6c90d0b45b24e447975896ec1b00",
 
@@ -113,31 +114,31 @@ var getWiki = function(){
 
 
     var result = $.ajax({
-        url: "https://api.dandelion.eu/datagraph/wikisearch/v1",
-        data: request,
-        dataType: "jsonp",
-        type: "GET",
+            url: "https://api.dandelion.eu/datagraph/wikisearch/v1",
+            data: request,
+            dataType: "jsonp",
+            type: "GET",
 
-    })
-    .done(function(result){
-        console.log(result);
-        var source   = $("#entry-template").html();
-        var template = Handlebars.compile(source);
-        var context = result.entities;
-        var html="";
-        console.log(context);
+        })
+        .done(function (result) {
+            console.log(result);
+            var source = $("#entry-template").html();
+            var template = Handlebars.compile(source);
+            var context = result.entities;
+            var html = "";
+            console.log(context);
 
-        $.each(context, function(index, item){
-            html += template(item);
-            $('.modal').html(html);
-            var inst = $('[data-remodal-id=modal]').remodal();
+            $.each(context, function (index, item) {
+                html += template(item);
+                $('.modal').html(html);
+                var inst = $('[data-remodal-id=modal]').remodal();
 
-            inst.open();
+                inst.open();
 
-              console.log(html);
-    });
 
-    })
+            });
+
+        })
 
 
 };
@@ -160,7 +161,7 @@ $(document).ready(function () {
 
     });
 
-    $('.answers').on('click', '.option.animated.pulse.selected', function(){
+    $('.answers').on('click', '.option.animated.pulse.selected', function () {
         $(this).removeClass('animated pulse selected');
 
         selected = false;
@@ -171,7 +172,7 @@ $(document).ready(function () {
     $(document).on('closed', '.remodal', function (e) {
 
 
-       $(this).remove();
+        $(this).remove();
     });
 
     $(document).on('confirmation', '.remodal', function (e) {
