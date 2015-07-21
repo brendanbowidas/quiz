@@ -3,7 +3,9 @@
 var points = 0,
     qNum = 0, //question #
     game = $('.row'),
-    selected = false; // global boolean to determine if an option is selected
+    selected = false, // global boolean to determine if an option is selected
+    correct = false,
+    remove = false;
 
 //randomizes questions & answers
 function shuffle(array) {
@@ -60,7 +62,7 @@ function showQuestion() {
 
         $(".answers").prepend("<li class= 'animated bounceInRight'><button class='option'>" + currChoices[i] + "</button></li>");
     }
-
+    console.log(qNum);
 
 }
 
@@ -73,7 +75,10 @@ function checkAnswer() {
     if (userAnswer === current.answer) {
 
         points += 1;
+        correct = true;
 
+    } else {
+        correct = false;
     }
 }
 
@@ -100,6 +105,8 @@ function showResults() {
 
 }
 
+
+// sends AJAX request for wikipeida information
 var getWiki = function () {
     var current = questions[qNum];
     var request = {
@@ -120,17 +127,24 @@ var getWiki = function () {
             type: "GET",
 
         })
+        //compiles information to template
         .done(function (result) {
-            console.log(result);
+
             var source = $("#entry-template").html();
             var template = Handlebars.compile(source);
             var context = result.entities;
             var html = "";
-            console.log(context);
 
+            //appends template to DOM, opens modal
             $.each(context, function (index, item) {
                 html += template(item);
+
                 $('.modal').html(html);
+                if (correct === true) {
+                    $('.correct').text('Correct!');
+                } else {
+                    $('.correct').text('Incorrect! The answer is:');
+                }
                 var inst = $('[data-remodal-id=modal]').remodal();
 
                 inst.open();
@@ -143,8 +157,11 @@ var getWiki = function () {
 
 };
 
+
+
 //DOCUMENT READY EVENTS------------------------------------------
 $(document).ready(function () {
+
 
     shuffle(questions);
 
@@ -168,18 +185,6 @@ $(document).ready(function () {
     });
 
 
-    // removes popup from DOM when closed or confirmed
-    $(document).on('closed', '.remodal', function (e) {
-
-
-        $(this).remove();
-    });
-
-    $(document).on('confirmation', '.remodal', function (e) {
-
-
-        $(this).remove();
-    });
 
 
 
@@ -187,13 +192,16 @@ $(document).ready(function () {
 
     $('.submit').on('click', function () {
 
-
         if (qNum === 4 && selected === true) { //shows result screen if last question
-            getWiki();
             checkAnswer();
-            removeGame();
-            showResults();
-            ///adds shake animation if no answer is selected
+            getWiki();
+            $(document).ajaxComplete(function () { //waits until ajax request is complete to proceed
+                $(document).on('confirmation', '.remodal', function (e) { //waits until popup is closed to show results screen
+                        removeGame();
+                        showResults();
+                    });
+                })
+                ///adds shake animation if no answer is selected
         } else if (selected === false) {
             $('.answers').addClass('animated shake');
             $('.answers').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
@@ -203,9 +211,19 @@ $(document).ready(function () {
         } else {
             getWiki();
             checkAnswer();
+
+            $(document).ajaxComplete(function () { //waits until ajax request is complete to proceed
+
+                $(document).on('confirmation', '.remodal', function (e) { //waits until popup is closed to display next question
+                    $(this).remove();
+
+                    $('.option').remove();
+                    showQuestion();
+
+                });
+
+            })
             qNum++
-            $('.option').remove();
-            showQuestion();
 
 
         }

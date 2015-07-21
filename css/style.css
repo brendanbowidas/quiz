@@ -85,7 +85,7 @@ button {
 
 .remodal {
     position: relative;
-
+    background-image: url("../img/crossword.png");
 }
 
 .remodal p {
