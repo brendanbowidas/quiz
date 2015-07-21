@@ -4,8 +4,8 @@ var points = 0,
     qNum = 0, //question #
     game = $('.row'),
     selected = false, // global boolean to determine if an option is selected
-    correct = false,
-    remove = false;
+    correct = false; //determines if previous answer was correct or not in order to append appropriate message to modal
+
 
 //randomizes questions & answers
 function shuffle(array) {
@@ -62,7 +62,7 @@ function showQuestion() {
 
         $(".answers").prepend("<li class= 'animated bounceInRight'><button class='option'>" + currChoices[i] + "</button></li>");
     }
-    console.log(qNum);
+
 
 }
 
@@ -127,16 +127,16 @@ var getWiki = function () {
             type: "GET",
 
         })
-        //compiles information to template
-        .done(function (result) {
+
+        .done(function (result) {  //compiles information to template
 
             var source = $("#entry-template").html();
             var template = Handlebars.compile(source);
             var context = result.entities;
             var html = "";
 
-            //appends template to DOM, opens modal
-            $.each(context, function (index, item) {
+
+            $.each(context, function (index, item) {  //appends template to DOM, opens modal
                 html += template(item);
 
                 $('.modal').html(html);
@@ -161,7 +161,6 @@ var getWiki = function () {
 
 //DOCUMENT READY EVENTS------------------------------------------
 $(document).ready(function () {
-
 
     shuffle(questions);
 
