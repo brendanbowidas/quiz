@@ -60,9 +60,9 @@ function showQuestion() {
         $(".image img").attr("src", current.pic);
         $(".count").text(qNum + 1);
 
-         if(qNum <= 4){
+
         $(".answers").prepend("<li class= 'animated bounceInRight'><button class='option'>" + currChoices[i] + "</button></li>");
-    }
+
     }
 
 }
