@@ -39,7 +39,7 @@ var q1 = new Question("img/bicep.png", ["Vastus Medialis", "Latissimus Dorsi", "
 
 var q2 = new Question("img/pec.png", ["Rectus Femoris", "Teres Minor", "Pectoralis Minor", "Pectoralis Major"], "Pectoralis Major");
 
-var q3 = new Question("img/quad.png", ["Lattisimus Dorsi", "Gastrocnemius", "Deltiod", "Quadriceps Femoris"], "Quadriceps Femoris");
+var q3 = new Question("img/quad.png", ["Lattisimus Dorsi", "Gastrocnemius", "Brachialis", "Quadriceps Femoris"], "Quadriceps Femoris");
 
 var q4 = new Question("img/lat.png", ["Soleus", "Rectus Abdominus", "Serratus Anterior", "Lattisimus Dorsi"], "Lattisimus Dorsi");
 
@@ -109,8 +109,9 @@ function showResults() {
 // sends AJAX request for wikipeida information
 var getWiki = function () {
     var current = questions[qNum];
+    var userAnswer = $('.answers .option.animated.pulse.selected').text();
     var request = {
-        text: current.answer,
+        text: userAnswer,
         lang: "en",
         limit: 1,
         include: "image,abstract",
@@ -143,7 +144,7 @@ var getWiki = function () {
                 if (correct === true) {
                     $('.correct').text('Correct!');
                 } else {
-                    $('.correct').text('Incorrect! The answer is:');
+                    $('.correct').text('Incorrect! You guessed:');
                 }
                 var inst = $('[data-remodal-id=modal]').remodal();
 
