@@ -60,9 +60,10 @@ function showQuestion() {
         $(".image img").attr("src", current.pic);
         $(".count").text(qNum + 1);
 
+         if(qNum <= 4){
         $(".answers").prepend("<li class= 'animated bounceInRight'><button class='option'>" + currChoices[i] + "</button></li>");
     }
-
+    }
 
 }
 
@@ -90,6 +91,7 @@ function removeGame() {
     $('.image').addClass('animated slideOutUp');
     $(".title").addClass('animated slideOutLeft');
     $('.input').addClass('animated slideOutRight');
+
 }
 
 //shows result screen
@@ -193,14 +195,18 @@ $(document).ready(function () {
     $('.submit').on('click', function () {
 
         if (qNum === 4 && selected === true) { //shows result screen if last question
+
             checkAnswer();
             getWiki();
+
             $(document).ajaxComplete(function () { //waits until ajax request is complete to proceed
+
                 $(document).on('confirmation', '.remodal', function (e) { //waits until popup is closed to show results screen
-                        removeGame();
+                   $('.answers').remove();
+                    removeGame();
                         showResults();
                     });
-                })
+                });
                 ///adds shake animation if no answer is selected
         } else if (selected === false) {
             $('.answers').addClass('animated shake');
